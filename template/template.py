@@ -30,7 +30,7 @@ class BaseTemplate:
 
     
     
-    def add(self, key, link_type, value):
+    def radd(self, key, link_type, value):
         '''
             添加一项数据，如要添加一项后原数据从空变为
             building = {
@@ -47,8 +47,8 @@ class BaseTemplate:
                 "pmg_ownership_capital_building_explosives_factory"
             ])
             或
-            add("texture", EQ , '"path/to/texture"')
-            add("production_method_groups", EQ, [
+            obj.radd("texture", EQ , '"path/to/texture"')
+            obj.radd("production_method_groups", EQ, [
                 "pmg_explosives_building_chemical_plants",
                 "pmg_ownership_capital_building_explosives_factory"
             ])
@@ -58,7 +58,7 @@ class BaseTemplate:
         self.data[self.name]["link_type_dict"][key] = link_type
         return self
 
-    def add(self, key, link_type, value, root_path, if_recursive=False):
+    def add(self, key, link_type, value, root_path = '', if_recursive=False):
         '''
             在指定层级添加一项数据，如要添加一项后原数据为
             building = {
@@ -81,7 +81,7 @@ class BaseTemplate:
 
         '''
         if root_path == "":
-            self.add(key, link_type, value)
+            self.radd(key, link_type, value)
             return self
         root_path_list = root_path.split(".")
         #根据root_path_list，找到对应的层级
