@@ -68,7 +68,7 @@ class BaseTemplate:
 	            }
                 possible = {
                         error_check = {     
-                            severity = fail   <---添加位置
+                            severity = fail         <---添加位置
                         }
                 }
             }
@@ -119,7 +119,7 @@ class BaseTemplate:
                 texture = "path/to/texture"
                 unlocking_technologies = {
 		            intensive_agriculture
-                    manufacturies  <---插入位置
+                    manufacturies                   <---插入位置
 	            }
                 possible = {
                         error_check = {
