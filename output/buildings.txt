@@ -1,0 +1,48 @@
+﻿buildings_explosives_building_chemical_plants = {
+	building_group = bg_key
+	texture = "path/to/texture"
+	buildable = yes
+	expandable = yes
+	downsizeable = yes
+	unique = yes
+	has_max_level = yes
+	ignore_stateregion_max_level = yes
+	enable_air_connection = yes
+	port = yes
+	unlocking_technologies = {
+	}
+	can_build = {
+	}
+	construction_points = int32
+	construction_modifier = {
+	}
+	owners = pop_type_key
+	economic_contribution = 0.0
+	min_raise_to_hire = fixed_point
+	naval = yes
+	canal = canal_type_key
+	ai_value = fixed_point
+	ai_subsidies_weight = fixed_point
+	slaves_role = pop_type_key
+	production_methods = {
+		pmg_explosives_building_chemical_plants
+	}
+	should_auto_expand = trigger
+	city_type = none
+	generates_residences = yes
+	terrain_manipulator = terrain_manipulator_key
+	levels_per_mesh = int32
+	residence_points_per_level = 0.0
+	override_centerpiece_mesh = yes
+	centerpiece_mesh_weight = 1.0
+	meshes = {
+	}
+	entity_not_constructed = {
+	}
+	entity_under_construction = {
+	}
+	entity_constructed = {
+	}
+	locator = locator_type
+	lens = infrastructure
+}

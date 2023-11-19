@@ -17,7 +17,8 @@ class Tokenizer:
             (r'^-?\d+', 'NUMBER'),        # 匹配整数
             (r'^"[^"]*"', 'STRING'),    # 匹配双引号字符串
             (r"^'[^']*'", 'STRING'),    # 匹配单引号字符串
-            (r'^(\w+[:.])?\w+', 'IDENTIFIER'),# 匹配“字符”+‘:’+“字符”的标识符，如law_type:law_isolationism
+            # 匹配“字符”+‘:’+“字符” 或 “字符”+‘/’+“字符”的标识符，如law_type:law_isolationism
+            (r'^(\w+[:./])?\w+', 'IDENTIFIER'),
             (r'^#[^\n]*', 'COMMENT'),   #匹配开头为#的单行注释,直到换行符为止
             (r'^\n', 'NEWLINE'),        #匹配换行符
             (r'^\{', 'BLOCK_START'),
@@ -281,10 +282,16 @@ def output_block_to_txt(block,f,depth=0):
             if match:
                 key = match.group(1)
 
-            #获取link_type
-            link_type = link_type_dict[key]
+
+            #检测link_type_dict中是否有key，如果没有，则link_type为=
+            if key not in link_type_dict:
+                link_type = '='
+            else:
+                #获取link_type
+                link_type = link_type_dict[key]
+
             #如果value是block，递归调用
-            if isinstance(value, dict):
+            if isinstance(value, dict) or isinstance(value, list):
                 #输出tab，depth个
                 f.write('\t' * depth)
                 #输出key，空格，link，空格，{，换行
@@ -319,23 +326,23 @@ def output_to_txt(output_path,dict):
         output_block_to_txt(dict,f)
 
 
-#测试用主函数
-if __name__ == '__main__':
-    #测试分词
-    test_filepath = r"pop_needs\elgar_pop_needs.txt"
-    #以utf-8编码读取文件,注意是否包含bom头
-    with open(test_filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-        #检测是否包含bom头，如果有则去除
-        if content.startswith('\ufeff'):
-            content = content[1:]
-    parser = ContentParser(content)
-    result = parser.parse()
-    #print(result)
-    import json
-    output_filepath = "test.json"
-    with open(output_filepath, 'w', encoding='utf-8') as f:
-        json.dump(result, f, ensure_ascii=False, indent=4)
-    output_txt_filepath = "test.txt"
-    output_to_txt(output_txt_filepath,result)
-    #测试分词结果
+# #测试用主函数
+# if __name__ == '__main__':
+#     #测试分词
+#     test_filepath = r"pop_needs\elgar_pop_needs.txt"
+#     #以utf-8编码读取文件,注意是否包含bom头
+#     with open(test_filepath, 'r', encoding='utf-8') as f:
+#         content = f.read()
+#         #检测是否包含bom头，如果有则去除
+#         if content.startswith('\ufeff'):
+#             content = content[1:]
+#     parser = ContentParser(content)
+#     result = parser.parse()
+#     #print(result)
+#     import json
+#     output_filepath = "test.json"
+#     with open(output_filepath, 'w', encoding='utf-8') as f:
+#         json.dump(result, f, ensure_ascii=False, indent=4)
+#     output_txt_filepath = "test.txt"
+#     output_to_txt(output_txt_filepath,result)
+#     #测试分词结果
