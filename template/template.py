@@ -32,12 +32,12 @@ class BaseTemplate:
     
     def add(self, key, link_type, value):
         '''
-            添加一项数据，如要添加一项后原数据为
+            添加一项数据，如要添加一项后原数据从空变为
             building = {
                texture = "path/to/texture"
                	production_method_groups = {
 		            pmg_explosives_building_chemical_plants
-		            pmg_ownership_capital_building_explosives_factory
+		            pmg_ownership_capital_building_explosives_factory      
 	            }
             }
             则调用
@@ -67,8 +67,8 @@ class BaseTemplate:
 		            intensive_agriculture
 	            }
                 possible = {
-                        error_check = {
-                            severity = fail
+                        error_check = {     
+                            severity = fail   <---添加位置
                         }
                 }
             }
@@ -119,7 +119,7 @@ class BaseTemplate:
                 texture = "path/to/texture"
                 unlocking_technologies = {
 		            intensive_agriculture
-                    manufacturies
+                    manufacturies  <---插入位置
 	            }
                 possible = {
                         error_check = {
